@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Каталог — TechStore</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+   
+</head>
+<body>
+<div class="overlay">
+    <header>
+        <div class="container">
+            <h1>TechStore</h1>
+            <nav>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="reviews.html">Отзывы</a></li>
+                </ul>
+                <div class="cart" id="cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count">0</span>
+                </div>
+                <div class="burger" id="burger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Поиск -->
+    <div class="search">
+        <input type="text" id="search" placeholder="Поиск товаров...">
+    </div>
+
+    <!-- Фильтры и категории -->
+    <div class="filters">
+        <label for="price-range">Цена:</label>
+        <input type="range" id="price-range" min="0" max="5000" step="100">
+        <span id="price-value">0</span>тг
+    </div>
+
+    <div class="categories">
+        <button class="category" data-category="laptops">Ноутбуки</button>
+        <button class="category" data-category="smartphones">Смартфоны</button>
+        <button class="category" data-category="headphones">Наушники</button>
+    </div>
+
+    <!-- Список товаров -->
+    <main class="product-list">
+        <div class="product" data-name="Ноутбук" data-category="laptops" data-price="3500">
+            <img src="https://c.dns-shop.kz/thumb/st1/fit/300/300/eb26986d17cd77ded6553788ff5d11f7/504d4f2d96557f791d60a732d68b8b2509e82eb08a25a69f53689f87da9ce15f.png" alt="Ноутбук">
+            <h2>Ноутбук</h2>
+            <p>Мощный ноутбук для работы и игр</p>
+            <span class="price">3500тг</span>
+            <button class="add-to-cart">Добавить в корзину</button>
+        </div>
+
+        <div class="product" data-name="Смартфон" data-category="smartphones" data-price="2500">
+            <img src="https://vzglyad.uz/wp-content/uploads/2025/02/2e490214-6da1-4d76-aac6-b0179e474c96-300x200.jpg" alt="Смартфон">
+            <h2>Смартфон</h2>
+            <p>Современный смартфон с отличной камерой</p>
+            <span class="price">2500тг</span>
+            <button class="add-to-cart">Добавить в корзину</button>
+        </div>
+
+        <div class="product" data-name="Наушники" data-category="headphones" data-price="1500">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTAzRa3Y33Ic1uWrZ7YJHqlEbc2A1zmCRgRg&s" alt="Наушники">
+            <h2>Наушники</h2>
+            <p>Беспроводные наушники с шумоподавлением</p>
+            <span class="price">1500тг</span>
+            <button class="add-to-cart">Добавить в корзину</button>
+        </div>
+    </main>
+
+</div>
+<center>
+    <footer>
+        &copy; 2025 TechStore — Все права защищены
+    </footer>
+</center>
+
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', () => {
+    const categories = document.querySelectorAll('.category');
+    const priceRange = document.getElementById('price-range');
+    const priceValue = document.getElementById('price-value');
+    const products = document.querySelectorAll('.product');
+    const searchInput = document.getElementById('search');
+    const cartCountElement = document.getElementById('cart-count');
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Обновление счётчика корзины
+    function updateCartCount() {
+        cartCountElement.textContent = cart.length;
+    }
+
+    // Добавление товара в корзину
+    function addToCart(product) {
+        cart.push(product);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+    }
+
+    // Обработчик добавления товара
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', () => {
+            const productElement = button.closest('.product');
+            const product = {
+                name: productElement.querySelector('h2').textContent,
+                price: productElement.querySelector('.price').textContent,
+            };
+            addToCart(product);
+        });
+    });
+
+    // Обновление счётчика при загрузке страницы
+    updateCartCount();
+
+    function filterProducts() {
+    const selectedCategory = document.querySelector('.category.active')?.dataset.category;
+    const maxPrice = parseInt(priceRange.value);
+    const searchText = searchInput.value.toLowerCase();
+
+    products.forEach(product => {
+        const productCategory = product.dataset.category;
+        const productPrice = parseInt(product.dataset.price);
+
+        const nameElement = product.querySelector('h2');
+        const descElement = product.querySelector('p');
+
+        const productName = nameElement.textContent;
+        const productDescription = descElement.textContent;
+
+        const productNameLower = productName.toLowerCase();
+        const productDescriptionLower = productDescription.toLowerCase();
+
+        const matchesCategory = !selectedCategory || productCategory === selectedCategory;
+        const matchesPrice = productPrice <= maxPrice;
+        const matchesSearch = productNameLower.includes(searchText) || productDescriptionLower.includes(searchText);
+
+        const shouldShow = matchesCategory && matchesPrice && matchesSearch;
+        product.style.display = shouldShow ? 'block' : 'none';
+
+        // Подсветка — только если показываем и есть что искать
+        if (shouldShow && searchText.length > 0) {
+            const highlight = (text) => {
+                const regex = new RegExp(`(${searchText})`, 'gi');
+                return text.replace(regex, '<mark>$1</mark>');
+            };
+
+            nameElement.innerHTML = highlight(productName);
+            descElement.innerHTML = highlight(productDescription);
+        } else {
+            // Сброс подсветки
+            nameElement.innerHTML = productName;
+            descElement.innerHTML = productDescription;
+        }
+    });
+}
+
+
+
+    // Обработчик изменения цены
+    priceRange.addEventListener('input', () => {
+        priceValue.textContent = priceRange.value;
+        filterProducts();
+    });
+
+    // Обработчик выбора категории
+    categories.forEach(category => {
+        category.addEventListener('click', () => {
+            categories.forEach(btn => btn.classList.remove('active'));
+            category.classList.add('active');
+            filterProducts();
+        });
+    });
+
+    // Меню-бургер
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('nav-links');
+
+    burger?.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+    filterProducts();
+});
+</script>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechStore</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<div class="overlay">
+
+    <header>
+        <div class="container">
+            <h1>TechStore</h1>
+            <nav>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="reviews.html">Отзывы</a></li>
+                </ul>
+                <div class="cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count">0</span>
+                </div>
+                <div class="burger" id="burger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="product-list">
+<div class="welcome-section">
+    <div class="welcome-overlay">
+        <center>
+        <b>
+           <h2 style="color: #fff;">Добро пожаловать на наш сайт!</h2>
+            <p style="text-align: center; color: #fff;">Здесь вы можете выбрать любую технику на свой выбор.</p>
+            <p style="text-align: center; color: #fff; max-width: 800px; margin: 0 auto;">
+                Мы предлагаем широкий ассортимент продуктов, от смартфонов и ноутбуков до бытовой техники и аксессуаров. Каждый товар в нашем каталоге проходит проверку качества, чтобы вы могли быть уверены в надежности своей покупки.
+            </p>
+            <p style="text-align: center; color: #fff; max-width: 800px; margin: 0 auto;">
+            В TechStore мы ценим каждого клиента и стремимся предоставить вам лучший сервис. Заходите в наш каталог и найдите технику, которая идеально подходит именно вам! Благодаря удобной системе фильтрации и поиска, вы быстро найдете то, что нужно именно вам.
+            </p>
+            <p style="text-align: center; color: #fff; max-width: 800px; margin: 0 auto;">
+                Наша команда постоянно обновляет ассортимент, следя за последними технологическими новинками и трендами. Мы сотрудничаем только с проверенными поставщиками, чтобы предложить вам только оригинальные товары с официальной гарантией.
+            </p>
+            <p style="text-align: center; color: #fff; max-width: 800px; margin: 0 auto;">
+                Не забывайте следить за нашими акциями и специальными предложениями, чтобы приобрести вашу любимую технику по выгодным ценам! Мы регулярно проводим распродажи, дарим бонусы постоянным клиентам и предлагаем эксклюзивные скидки.
+            </p>
+            <p style="text-align: center; color: #fff; max-width: 800px; margin: 0 auto;">
+                Выбирая TechStore, вы выбираете качество, надёжность и заботу. Благодарим вас за доверие и желаем приятных покупок!
+            </p>
+            </b>
+        </center>
+    </div>
+</div>
+    </main>  
+    <script>
+    let cartCount = 0;
+
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', () => {
+            cartCount++;
+            document.getElementById('cart-count').textContent = cartCount;
+
+            button.textContent = "Добавлено!";
+            button.disabled = true;
+
+            setTimeout(() => {
+                button.textContent = "Добавить в корзину";
+                button.disabled = false;
+            }, 1000);
+        });
+    });
+    const burger = document.getElementById('burger');
+const navLinks = document.getElementById('nav-links');
+
+burger?.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const slides = document.querySelectorAll('.testimonial-slide');
+    const prevBtn = document.querySelector('.slider-btn.prev');
+    const nextBtn = document.querySelector('.slider-btn.next');
+    let currentIndex = 0;
+    let interval;
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === index);
+        });
+    }
+
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % slides.length;
+        showSlide(currentIndex);
+    }
+
+    function prevSlide() {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        showSlide(currentIndex);
+    }
+
+    function startAutoSlide() {
+        interval = setInterval(nextSlide, 5000);
+    }
+
+    function stopAutoSlide() {
+        clearInterval(interval);
+    }
+
+    nextBtn.addEventListener('click', () => {
+        stopAutoSlide();
+        nextSlide();
+        startAutoSlide();
+    });
+
+    prevBtn.addEventListener('click', () => {
+        stopAutoSlide();
+        prevSlide();
+        startAutoSlide();
+    });
+
+    showSlide(currentIndex);
+    startAutoSlide();
+});
+    </script>
+<center>
+    <footer>
+        &copy; 2025 TechStore — Все права защищены
+    </footer>
+</center>
+</div>
+    
+</body>
+</html>
