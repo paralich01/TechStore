@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Каталог — TechStore</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .cart-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .cart-content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .cart-content li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .cart-content li button {
+            background-color: #ff4444;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .cart-content button.close-btn {
+            background-color: #333;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+<div class="overlay">
+    <header>
+    <div class="container">
+        <div class="logo">
+            <a href="index.html">
+                <img src="images/logo.png" alt="TS Logo" class="logo-img">
+            </a>
+            <h1>TechStore</h1>
+        </div>
+        <nav>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="catalog.html">Каталог</a></li>
+                <li><a href="about.html">О нас</a></li>
+                <li><a href="reviews.html">Отзывы</a></li>
+                <li><a href="support.html">Поддержка</a></li>
+            </ul>
+            <div class="burger" id="burger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <div class="search">
+        <input type="text" id="search" placeholder="Поиск товаров...">
+    </div>
+
+   <div class="filters">
+    <label for="price-range">Цена:</label>
+    <input type="range" id="price-range" min="0" max="15000" step="100">
+    <span id="price-value">0</span>тг
+</div>
+
+
+    <div class="categories">
+        <button class="category" data-category="laptops">Ноутбуки</button>
+        <button class="category" data-category="smartphones">Смартфоны</button>
+        <button class="category" data-category="headphones">Наушники</button>
+        <button class="category" data-category="fridge">Холодильники</button>
+        <button class="category" data-category="stove">Плиты</button>
+        <button class="category" data-category="conditioner">Кондиционеры</button>
+        <button class="category" data-category="PlayStation">Плей-стейшен (PS)</button>
+        <button class="category" data-category="column">Колонки</button>
+    </div>
+
+    <main class="product-list">
+        <!-- Пример товара (повторяющиеся блоки) -->
+        <div class="product" data-name="Ноутбук" data-category="laptops" data-price="3500">
+            <img src="https://c.dns-shop.kz/thumb/st1/fit/300/300/eb26986d17cd77ded6553788ff5d11f7/504d4f2d96557f791d60a732d68b8b2509e82eb08a25a69f53689f87da9ce15f.png" alt="Ноутбук">
+            <h2>Ноутбук</h2>
+            <p>Мощный ноутбук для работы и игр</p>
+            <span class="price">3500тг</span>
+            <button class="add-to-cart">Добавить в корзину</button>
+        </div>
+        <div class="product" data-name="Смартфон" data-category="smartphones" data-price="2500">
+            <img src="https://vzglyad.uz/wp-content/uploads/2025/02/2e490214-6da1-4d76-aac6-b0179e474c96-300x200.jpg" alt="Смартфон">
+            <h2>Смартфон</h2>
+            <p>Современный смартфон с отличной камерой</p>
+            <span class="price">2500тг</span>
+            <button class="add-to-cart">Добавить в корзину</button>
+        </div>
+
+        <div class="product" data-name="Наушники" data-category="headphones" data-price="1500">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTAzRa3Y33Ic1uWrZ7YJHqlEbc2A1zmCRgRg&s" alt="Наушники">
+            <h2>Наушники</h2>
+            <p>Беспроводные наушники с шумоподавлением</p>
+            <span class="price">1500тг</span>
+            <button class="add-to-cart">Добавить в корзину</button>
+        </div>
+
+        <div class="product" data-name="Холодильник" data-category="fridge" data-price="7500">
+            <img src="https://sun9-17.userapi.com/impg/Z5Cdvw9X5sa-ywmNbtjumVtJNDoIyXOtyp5tgw/rUvuZ8ofCxw.jpg?size=976x1041&quality=95&sign=a74fddbd6e69c282f7fb1d8201548cba&c_uniq_tag=LYElK2DxG4xBlptOUj18WKynnmjXpFslhzsQsBKKz6o&type=album" alt="Холодильник">
+            <h2>Холодильник</h2>
+            <p>Холодильник с настройкой температуры</p>
+            <span class="price">7500тг</span>
+            <button class="add-to-cart">Добавить в корзину</button>
+        </div>
+
+        <div class="product" data-name="Плита" data-category="stove" data-price="4500">
+            <img src="https://avatars.mds.yandex.net/i?id=9e46d28c0afca0ed7e69e0bddcc9c92531112611-10652477-images-thumbs&n=13" alt="Плита">
+            <h2>Плита</h2>
+            <p>Электронная-Плита с множеством функций для готовки</p>
+            <span class="price">4500тг</span>
+            <button class="add-to-cart">Добавить в корзину</button>
+        </div>
+
+        <div class="product" data-name="Кондиционер" data-category="conditioner" data-price="6500">
+            <img src="https://avatars.mds.yandex.net/i?id=21a36f2756283704b7f2f245698a1f902965d488-4888127-images-thumbs&n=13" alt="Кондиционер">
+            <h2>Кондиционер</h2>
+            <p>Кондиционер с функциями эко и тихого режимами</p>
+            <span class="price">6500тг</span>
+            <button class="add-to-cart">Добавить в корзину</button>
+        </div>
+
+         <div class="product" data-name="ПлейСтейшен" data-category="PlayStation" data-price="10000">
+            <img src="https://avatars.mds.yandex.net/i?id=96388ceb5dd1d74096aa3309b793f828297c5793-4479838-images-thumbs&n=13" alt="ПлейСтейшен">
+            <h2>ПлейСтейшен</h2>
+            <p>PS идёт с 2 джостиками и зарядной станцией</p>
+            <span class="price">10000тг</span>
+            <button class="add-to-cart">Добавить в корзину</button>
+        </div>
+
+         <div class="product" data-name="Колонка" data-category="column" data-price="5000">
+            <img src="https://cdn.evrika.com/storage/products/images/default/sqQrNs2BwpIVh7quz3L8ZsjedAJQG0Pxqjk5Iptq.jpg.webp" alt="Колонка">
+            <h2>Колонка</h2>
+            <p>Яндекс Станция Миди с Алисой, с Zigbee, 24 Вт, оранжевая</p>
+            <span class="price">5000тг</span>
+            <button class="add-to-cart">Добавить в корзину</button>
+        </div>
+    </main>
+</div>
+
+<div id="cart-modal" class="cart-modal">
+    <div class="contact-button">
+        <div class="cart-content">
+            <h3>Корзина</h3>
+            <ul id="cart-items"></ul>
+            <p><strong>Общий счёт:</strong> <span id="total-price">0</span>тг</p>
+             <a href="thankyou.html"><i class="fas fa-envelope"></i> Оформить заказ</a>
+            <button class="close-btn" onclick="closeCart()">Закрыть</button>
+            <p id="checkout-message" style="color: green; margin-top: 10px;"></p>
+        </div>
+    </div>
+</div>
+
+<form id="checkout-form">
+  <button type="submit">Оформить заказ</button>
+</form>
+
+   
+ 
+
+<button onclick="resetFilters()">Сбросить фильтры</button>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const categories = document.querySelectorAll('.category');
+    const priceRange = document.getElementById('price-range');
+    const priceValue = document.getElementById('price-value');
+    const products = document.querySelectorAll('.product');
+    const searchInput = document.getElementById('search');
+    const cartCountElement = document.getElementById('cart-count');
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function updateCartCount() {
+        cartCountElement.textContent = cart.length;
+    }
+
+    function addToCart(product) {
+        cart.push(product);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+    }
+
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', () => {
+            const productElement = button.closest('.product');
+            const product = {
+                name: productElement.querySelector('h2').textContent,
+                price: productElement.querySelector('.price').textContent
+            };
+            addToCart(product);
+        });
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('search-input');
+    const filterSelect = document.getElementById('filter-select');
+    const products = document.querySelectorAll('.product');
+
+    searchInput.addEventListener('input', filterProducts);
+    filterSelect.addEventListener('change', filterProducts);
+
+    function filterProducts() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const selectedCategory = filterSelect.value;
+
+        products.forEach(product => {
+            const productName = product.querySelector('.product-name').textContent.toLowerCase();
+            const productCategory = product.dataset.category;
+
+            if ((productName.includes(searchTerm) || searchTerm === '') &&
+                (selectedCategory === 'all' || productCategory === selectedCategory)) {
+                product.style.display = 'block';
+            } else {
+                product.style.display = 'none';
+            }
+        });
+    }
+});
+function submitOrder(orderData) {
+    fetch('/submit-order', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(orderData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = 'thankyou.html';
+        } else {
+            alert('Произошла ошибка при оформлении заказа. Попробуйте снова.');
+        }
+    })
+    .catch(error => {
+        console.error('Ошибка:', error);
+        alert('Произошла ошибка при оформлении заказа. Попробуйте снова.');
+    });
+}
+function generateInvoice(orderData) {
+    const doc = new jsPDF();
+
+    doc.text('Чек', 20, 20);
+    doc.text(`Номер заказа: ${orderData.orderId}`, 20, 30);
+    doc.text(`Дата: ${new Date().toLocaleDateString()}`, 20, 40);
+    doc.text(`Сумма: ${orderData.totalAmount}₸`, 20, 50);
+
+    doc.save(`invoice-${orderData.orderId}.pdf`);
+}
+
+
+    updateCartCount();
+
+    function renderCart() {
+        const cartModal = document.getElementById('cart-modal');
+        const cartItems = document.getElementById('cart-items');
+        const totalPriceEl = document.getElementById('total-price');
+
+        cartItems.innerHTML = '';
+        let total = 0;
+
+        cart.forEach((item, index) => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                ${item.name} — ${item.price}
+                <button onclick="removeFromCart(${index})">Удалить</button>
+            `;
+            cartItems.appendChild(li);
+
+            const price = parseInt(item.price.replace(/\D/g, ''));
+            total += price;
+        });
+
+        totalPriceEl.textContent = total;
+        cartModal.style.display = 'flex';
+    }
+    searchInput.addEventListener('input', filterProducts);
+priceRange.addEventListener('input', () => {
+    priceValue.textContent = priceRange.value;
+    filterProducts();
+});
+
+
+    function filterProducts() {
+    const selectedCategory = document.querySelector('.category.active')?.dataset.category;
+    const maxPrice = parseInt(priceRange.value);
+    const searchText = searchInput.value.trim().toLowerCase();
+
+    products.forEach(product => {
+        const productCategory = product.dataset.category;
+        const productPrice = parseInt(product.dataset.price);
+
+        const nameElement = product.querySelector('h2');
+        const descElement = product.querySelector('p');
+
+        const productName = nameElement.textContent.toLowerCase();
+        const productDescription = descElement.textContent.toLowerCase();
+
+        const matchesCategory = !selectedCategory || productCategory === selectedCategory;
+        const matchesPrice = productPrice <= maxPrice;
+        const matchesSearch = productName.includes(searchText) || productDescription.includes(searchText);
+
+        const shouldShow = (searchText === '' || (matchesCategory && matchesPrice && matchesSearch));
+
+        product.style.display = shouldShow ? 'block' : 'none';
+
+        if (shouldShow && searchText.length > 0) {
+            const highlight = (text) => {
+                const regex = new RegExp(`(${searchText})`, 'gi');
+                return text.replace(regex, '<mark>$1</mark>');
+            };
+
+            nameElement.innerHTML = highlight(productName);
+            descElement.innerHTML = highlight(productDescription);
+        } else {
+            nameElement.innerHTML = productName;
+            descElement.innerHTML = productDescription;
+        }
+    });
+}
+
+
+    priceRange.addEventListener('input', () => {
+        priceValue.textContent = priceRange.value;
+        filterProducts();
+    });
+
+    categories.forEach(category => {
+        category.addEventListener('click', () => {
+            categories.forEach(btn => btn.classList.remove('active'));
+            category.classList.add('active');
+            filterProducts();
+        });
+    });
+
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('nav-links');
+
+    burger?.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+
+    filterProducts();
+
+    document.getElementById('cart').addEventListener('click', () => {
+        renderCart();
+    });
+});
+
+function closeCart() {
+    document.getElementById('cart-modal').style.display = 'none';
+}
+
+function removeFromCart(index) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    document.dispatchEvent(new Event('DOMContentLoaded')); // перезапустить логику
+}
+function checkout() {
+    if (cart.length === 0) {
+        document.getElementById('checkout-message').textContent = 'Корзина пуста.';
+        return;
+    }
+
+    
+    cart = [];
+    localStorage.removeItem('cart');
+    updateCartCount();
+
+    
+    document.getElementById('search').value = '';
+    document.getElementById('price-range').value = document.getElementById('price-range').max;
+    document.getElementById('price-value').textContent = document.getElementById('price-range').max;
+    document.querySelectorAll('.category').forEach(cat => cat.classList.remove('active'));
+
+    
+    document.querySelectorAll('.product').forEach(product => {
+        product.style.display = 'block';
+
+        const nameElement = product.querySelector('h2');
+        const descElement = product.querySelector('p');
+        nameElement.innerHTML = nameElement.textContent;
+        descElement.innerHTML = descElement.textContent;
+    });
+
+    
+    setTimeout(() => {
+        window.location.href = "thankyou.html";
+    }, 1000);
+}
+function resetFilters() {
+    
+    document.querySelectorAll('.category').forEach(btn => btn.classList.remove('active'));
+
+    
+    priceRange.value = 15000;
+    priceValue.textContent = '15000';
+
+   
+    searchInput.value = '';
+
+    
+    filterProducts();
+}
+document.addEventListener('DOMContentLoaded', () => {
+    const checkoutButton = document.getElementById('checkout-button');
+
+    if (checkoutButton) {
+        checkoutButton.addEventListener('click', () => {
+            
+            window.location.href = 'thankyou.html';
+        });
+    }
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('checkout-form');
+
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); 
+            window.location.href = 'thankyou.html'; 
+        });
+    }
+});
+// Сохранение товара в корзину
+function addToCart(productId) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push(productId);
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+// Получение товаров из корзины
+function getCart() {
+    return JSON.parse(localStorage.getItem('cart')) || [];
+}
+
+
+</script>
+
+</body>
+</html>

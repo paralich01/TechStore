@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Спасибо за покупку!</title>
+    <link rel="stylesheet" href="styles.css">
+    <style type="text/css">
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    text-align: center;
+    padding: 50px;
+}
+
+.thank-you-page {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    max-width: 500px;
+    width: 100%;
+}
+
+h1 {
+    color: #4CAF50;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+</style>
+</head>
+<body>
+    <div class="thank-you-page">
+        <h1>Спасибо за ваш заказ!</h1>
+        <p>Ваш заказ успешно оформлен. Мы свяжемся с вами в ближайшее время.</p>
+        <button id="continue-shopping">Продолжить покупки</button>
+        <button id="contact-support">Связаться с поддержкой</button>
+    </div>
+
+    <script>
+    document.getElementById('continue-shopping').addEventListener('click', () => {
+        window.location.href = 'catalog.html'; // Перенаправление на главную страницу
+    });
+
+    document.getElementById('contact-support').addEventListener('click', () => {
+        window.location.href = 'support.html'; // Перенаправление на страницу контактов
+    });
+    </script>
+</body>
+</html>

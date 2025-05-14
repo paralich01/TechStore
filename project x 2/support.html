@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поддержка — TechStore</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #white;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            padding: 20px 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            color: #fff;
+            margin: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        main {
+            padding: 40px 20px;
+            background-color: #fff;
+        }
+
+        .map {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        iframe {
+            max-width: 100%;
+            height: 400px;
+            border: none;
+        }
+
+        .reviews-section {
+            max-width: 800px;
+            margin: 0 auto 50px;
+        }
+
+        .review {
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #00ccff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .review h4 {
+            margin-top: 0;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fafafa;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .contact-form label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .contact-form button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #00ccff;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .contact-form button:hover {
+            background-color: #009ecb;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="overlay">
+    <header>
+    <div class="container">
+        <div class="logo">
+            <a href="index.html">
+                <img src="images/logo.png" alt="TS Logo" class="logo-img">
+            </a>
+            <h1>TechStore</h1>
+        </div>
+        <nav>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="catalog.html">Каталог</a></li>
+                <li><a href="about.html">О нас</a></li>
+                <li><a href="reviews.html">Отзывы</a></li>
+                <li><a href="support.html">Поддержка</a></li>
+            </ul>
+            <div class="burger" id="burger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </div>
+</header>
+  <center>
+    <div id="contacts">
+    <h2>Контакты</h2>
+    <p>
+      📍 Адрес: г. Шымкент, ул. Желтоксан. 30/1<br>
+      ☎ Телефон: <a href="tel:+78005553535" style="color: white;">8 (800) 555-35-35</a><br>
+      ✉ Email: <a href="mailto:support@techstore.ru" style="color: white;">support@techstore.ru</a>
+    </p>
+  </div>
+</center>
+<center>
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1968.830589639734!2d69.59621170574685!3d42.32305935381892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38a91c1f5bcbecc7%3A0x6924d5ed03079fad!2z0K7QttC90L4gLSDQmtCw0LfQsNGF0YHRgtCw0L3RgdC60LjQuSDQn9C-0LvQuNGC0LXRhdC90LjRh9C10YHQutC40Lkg0JrQvtC70LvQtdC00LY!5e0!3m2!1sru!2skz!4v1747213752081!5m2!1sru!2skz" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</center>
+    <main>
+
+        <form action="send_review.php" method="POST" class="contact-form">
+        <h2>Тех.поддержка</h2>
+
+            <label for="message">Поддержка:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+
+            <button type="submit">Отправить</button>
+        </form>
+
+    </main>
+
+</div>
+<script type="text/javascript"> <script>
+    let cartCount = 0;
+
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', () => {
+            cartCount++;
+            document.getElementById('cart-count').textContent = cartCount;
+
+            button.textContent = "Добавлено!";
+            button.disabled = true;
+
+            setTimeout(() => {
+                button.textContent = "Добавить в корзину";
+                button.disabled = false;
+            }, 1000);
+        });
+    });
+    const burger = document.getElementById('burger');
+const navLinks = document.getElementById('nav-links');
+
+burger?.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const slides = document.querySelectorAll('.testimonial-slide');
+    const prevBtn = document.querySelector('.slider-btn.prev');
+    const nextBtn = document.querySelector('.slider-btn.next');
+    let currentIndex = 0;
+    let interval;
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === index);
+        });
+    }
+
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % slides.length;
+        showSlide(currentIndex);
+    }
+
+    function prevSlide() {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        showSlide(currentIndex);
+    }
+
+    function startAutoSlide() {
+        interval = setInterval(nextSlide, 5000);
+    }
+
+    function stopAutoSlide() {
+        clearInterval(interval);
+    }
+
+    nextBtn.addEventListener('click', () => {
+        stopAutoSlide();
+        nextSlide();
+        startAutoSlide();
+    });
+
+    prevBtn.addEventListener('click', () => {
+        stopAutoSlide();
+        prevSlide();
+        startAutoSlide();
+    });
+
+    showSlide(currentIndex);
+    startAutoSlide();
+});
+fetch("https://api.ipify.org?format=json")
+  .then(response => response.json())
+  .then(data => {
+    console.log("IP пользователя:", data.ip);
+    // Например, записать в логи (если уведомили пользователя)
+  });
+
+    </script>
+
+</body>
+</html>
